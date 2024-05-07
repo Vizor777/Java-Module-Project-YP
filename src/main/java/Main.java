@@ -35,6 +35,7 @@ public class Main {
                 String answer = scanner.next();
                 if (answer.equalsIgnoreCase("Завершить")) {
                     calc.getProductList();
+                    calc.getTax();
                     break;
                 } else if (!answer.equalsIgnoreCase("Завершить")) {
 
@@ -63,7 +64,19 @@ public class Main {
             System.out.println("Товар успешно добавлен");
         }
         private void getProductList() {
-            System.out.println(products);
+
+            for (Product product: products
+                 ) {
+                System.out.println(product.name);
+            }
+        }
+        private void getTax() {
+            double finalSum = 0;
+            for (Product product : products) {
+                finalSum = finalSum + product.price;
+            }
+            finalSum = finalSum / products.size();
+            System.out.println("Каждый должен заплатить по: " + finalSum);
         }
 
     }

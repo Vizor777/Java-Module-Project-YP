@@ -16,7 +16,7 @@ public class Main {
                 System.out.println("Неверное количество человек");
 
             } else result = true;
-        count = quantity;
+            count = quantity;
 
         }
         if (count > 1) {
@@ -36,7 +36,7 @@ public class Main {
                         System.out.println("Неверное значение стоимости товара, повторите ввод.");
                     } else {
                         for (int i = 1; i < charArray.length; i++) {
-                            if(!Character.isDigit(charArray[i]) && charArray[i] != ',' && charArray[i] != '.') {
+                            if (!Character.isDigit(charArray[i]) && charArray[i] != ',' && charArray[i] != '.') {
                                 System.out.println("Неверное значение стоимости товара, повторите ввод.");
                             } else {
                                 status = false;
@@ -70,7 +70,6 @@ public class Main {
     }
 
 
-
     static class Calc {
         double sum = 0;
         int visitors = 0;
@@ -79,18 +78,21 @@ public class Main {
         private void addVisitors(int a) {
             this.visitors = this.visitors + a;
         }
+
         private void addProduct(Product product) {
             products.add(product);
             this.sum = product.price;
             System.out.println("Товар успешно добавлен");
         }
+
         private void getProductList() {
-        System.out.println("Добавлены товары: ");
-            for (Product product: products
-                 ) {
-                System.out.println( product.name);
+            System.out.println("Добавлены товары: ");
+            for (Product product : products
+            ) {
+                System.out.println(product.name);
             }
         }
+
         private void getTax() {
             double finalSum = 0;
             for (Product product : products) {
@@ -101,8 +103,9 @@ public class Main {
             String messageTemplate = "Каждый должен заплатить по: %.2f %s";
             System.out.println(String.format(Locale.ROOT, messageTemplate, finalSum, getWord(finalSum)));
         }
-         private String getWord(double pay) {
-             double strNumber = Math.floor(pay);
+
+        private String getWord(double pay) {
+            double strNumber = Math.floor(pay);
             if (strNumber == 1) {
                 return "рубль";
             } else if (strNumber > 1 && strNumber < 5) {
@@ -110,15 +113,15 @@ public class Main {
             } else if (strNumber > 4) {
                 return "рублей";
             }
-             return null;
-         }
+            return null;
+        }
     }
-
 
 
     static class Product {
         String name;
         double price;
+
         public Product(String name, double price) {
             this.name = name;
             this.price = price;

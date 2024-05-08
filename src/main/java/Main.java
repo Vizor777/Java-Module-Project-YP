@@ -1,7 +1,5 @@
-
-
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -27,8 +25,33 @@ public class Main {
             while (true) {
                 System.out.println("Введите название товара");
                 String name = scanner.next();
-                System.out.println("Введите стоимость товара");
-                double price = scanner.nextDouble();
+                String checkPrice = null;
+                boolean status = true;
+
+                while (status) {
+                    System.out.println("Введите стоимость товара");
+                    checkPrice = scanner.next();
+                    char[] charArray = checkPrice.toCharArray();
+                    if (charArray[0] == ',' || charArray[0] == '.') {
+                        System.out.println("Неверное значение стоимости товара, повторите ввод.");
+                    } else {
+                        for (int i = 1; i < charArray.length; i++) {
+                            if(!Character.isDigit(charArray[i]) && charArray[i] != ',' && charArray[i] != '.') {
+                                System.out.println("Неверное значение стоимости товара, повторите ввод.");
+                            } else {
+                                status = false;
+                            }
+                        }
+                        for (int a = 0; a < charArray.length; a++) {
+                            if (charArray[a] == ',') {
+                                charArray[a] = '.';
+                                checkPrice = new String(charArray);
+                            }
+                        }
+                    }
+                }
+
+                double price = Double.parseDouble(checkPrice);
                 Product product = new Product(name, price);
                 calc.addProduct(product);
                 System.out.println("Добавить еще один товар?");
@@ -44,11 +67,9 @@ public class Main {
             }
         }
 
-
-
-
-
     }
+
+
 
     static class Calc {
         double sum = 0;
@@ -64,10 +85,10 @@ public class Main {
             System.out.println("Товар успешно добавлен");
         }
         private void getProductList() {
-
+        System.out.println("Добавлены товары: ");
             for (Product product: products
                  ) {
-                System.out.println(product.name);
+                System.out.println( product.name);
             }
         }
         private void getTax() {
@@ -76,10 +97,24 @@ public class Main {
                 finalSum = finalSum + product.price;
             }
             finalSum = finalSum / products.size();
-            System.out.println("Каждый должен заплатить по: " + finalSum);
-        }
 
+            String messageTemplate = "Каждый должен заплатить по: %.2f %s";
+            System.out.println(String.format(Locale.ROOT, messageTemplate, finalSum, getWord(finalSum)));
+        }
+         private String getWord(double pay) {
+             double strNumber = Math.floor(pay);
+            if (strNumber == 1) {
+                return "рубль";
+            } else if (strNumber > 1 && strNumber < 5) {
+                return "рубля";
+            } else if (strNumber > 4) {
+                return "рублей";
+            }
+             return null;
+         }
     }
+
+
 
     static class Product {
         String name;

@@ -6,14 +6,14 @@ public class Calc {
     int visitors = 0;
     ArrayList<Product> products = new ArrayList<>();
 
-    private void addVisitors(int a) {
-        this.visitors = this.visitors + a;
+    private void addVisitors(int umberOfPersons) {
+        this.visitors = this.visitors + umberOfPersons;
     }
 
     public void addProduct(Product product) {
         products.add(product);
         this.sum = product.price;
-        System.out.println("Товар успешно добавлен");
+        System.out.println("Товар успешно добавлен.\n");
     }
 
     public void getProductList() {
@@ -31,25 +31,27 @@ public class Calc {
             count = count + product.price;
         }
         finalSum = count / quantityFinal;
-
-        String messageTemplate = "Каждый должен заплатить по: %.2f %s";
+        String messageTemplate = "Сумма для каждого: %.2f %s";
         System.out.println(String.format(Locale.ROOT, messageTemplate, finalSum, getWord(finalSum)));
     }
 
-    private String getWord(double pay) {
-        Double strNumber = Math.floor(pay);
+    private String getWord(double money) {
+        Double strNumber = Math.floor(money);
         Integer integerNumber = strNumber.intValue();
-        String checkNumber = String.valueOf(integerNumber);
-
-        char [] arrChar = checkNumber.toCharArray();
-        int num = Character.getNumericValue(arrChar[arrChar.length - 1]);
-        if (num == 1) {
-            return "рубль";
-        } else if (num > 1 && num < 5) {
-            return "рубля";
-        } else if (num > 4 && num <= 0) {
+        int x = integerNumber % 10;
+        if (integerNumber % 100 >= 11 && integerNumber % 100 <= 14) {
             return "рублей";
+        } else {
+            switch (x) {
+                case 1:
+                    return "рубль";
+                case 2:
+                case 3:
+                case 4:
+                    return "рубля";
+                default:
+                    return "рублей";
+            }
         }
-        return null;
     }
 }

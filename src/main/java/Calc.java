@@ -6,10 +6,6 @@ public class Calc {
     int visitors = 0;
     ArrayList<Product> products = new ArrayList<>();
 
-    private void addVisitors(int umberOfPersons) {
-        this.visitors = this.visitors + umberOfPersons;
-    }
-
     public void addProduct(Product product) {
         products.add(product);
         this.sum = product.price;
@@ -18,8 +14,7 @@ public class Calc {
 
     public void getProductList() {
         System.out.println("Добавлены товары: ");
-        for (Product product : products
-        ) {
+        for (Product product : products) {
             System.out.println(product.name);
         }
     }
@@ -32,7 +27,7 @@ public class Calc {
         }
         finalSum = count / quantityFinal;
         String messageTemplate = "Сумма для каждого: %.2f %s";
-        System.out.println(String.format(Locale.ROOT, messageTemplate, finalSum, getWord(finalSum)));
+        System.out.printf(Locale.ROOT, (messageTemplate) + "%n", finalSum, getWord(finalSum));
     }
 
     private String getWord(double money) {
